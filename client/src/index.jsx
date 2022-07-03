@@ -13,23 +13,31 @@ class App extends React.Component {
     }
 
   }
-
+/*
   fetchAll() {
-
+    axios.get('/repos')
+    .then((response)=>{
+      this.setState({repos:response.data})
+    })
+    .catch(console.log("Fetch All failed"));
   }
-
+*/
   search (term) {
     console.log(`${term} was searched`);
-    axios.post('/repos',{
-      username:term
-    }).then(()=>
+    if(term!==''){
+      axios.post('/repos',{
+        username:term
+      })
+      .then(()=>
       axios.get('/repos').then((response)=>{
-        console.log(response.data);
-        /*this.setState({
-          repos:response
-        })*/
+       // console.log(response.data);
+        this.setState({
+          repos:response.data
+        })
       })
     )
+    }
+
     // TODO
     /*
     if(term!==''&& !this.state.repos.includes(term)){
@@ -45,7 +53,7 @@ class App extends React.Component {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search}/>
+      <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
 }

@@ -27,7 +27,7 @@ let save = (repos) => {
   .then(()=>(console.log("saved")))
   .catch(()=>(console.log("error")));
   */
-  return db.Repo.insertMany(repos);
+  return Repo.insertMany(repos);
 }
 
 let topRepos=()=>{
